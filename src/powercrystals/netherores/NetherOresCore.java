@@ -57,7 +57,7 @@ public class NetherOresCore extends BaseMod
 {
 	public static final String modId = "NetherOres";
 	public static final String modName = "Nether Ores";
-	public static final String version = "1.7.10R2.3.1";
+	public static final String version = "1.7.10R2.3.2B1";
 	public static final String dependencies = CoFHCore.version_group;
 
 	public static final String mobTextureFolder = "netherores:textures/mob/";
@@ -125,7 +125,7 @@ public class NetherOresCore extends BaseMod
 		{
 			BlockNetherOverrideOre quartz = new BlockNetherOverrideOre(Blocks.quartz_ore) {
 				@Override
-				public void setOverride() 
+				public void setOverride()
 				{
 					Blocks.quartz_ore = this;
 				}
@@ -169,20 +169,18 @@ public class NetherOresCore extends BaseMod
 	public void postInit(FMLPostInitializationEvent e)
 	{
 		if (!enableSmeltToOres.getBoolean(true))
-			Ores.Coal.registerSmelting(new ItemStack(Items.coal));  // If not smelting to ore, smelt coal ore to coal. Without this it would be dustCoal if that exists.
-
-		Ores.Coal.registerPulverizing(new ItemStack(Items.coal)); // Register pulverizing of coal ore to coal to avoid it getting registered as dustCoal if that exists.
+			Ores.Coal.registerSmelting(new ItemStack(Items.coal));  // If not smelting to ore, smelt coal ore to coal.
+		Ores.Coal.setDropItem(new ItemStack(Items.coal));
 
 		for (Ores ore : Ores.values()) {
 			String oreName;
 			oreName = ore.getOreName(); // Ore
 			if (enableSmeltToOres.getBoolean(true) && OreDictionary.getOres(oreName).size() > 0)
 				registerOreDictOre(ore, oreName, OreDictionary.getOres(oreName).get(0));
-			else {
-				oreName = ore.getSmeltName(); // Ingot
-				if (OreDictionary.getOres(oreName).size() > 0)
-					registerOreDictSmelt(ore, oreName, OreDictionary.getOres(oreName).get(0));
-			}
+
+			oreName = ore.getSmeltName(); // Ingot
+			if (OreDictionary.getOres(oreName).size() > 0)
+				registerOreDictSmelt(ore, oreName, OreDictionary.getOres(oreName).get(0));
 
 			oreName = ore.getDustName(); // Dust
 			if (OreDictionary.getOres(oreName).size() > 0)
@@ -192,6 +190,8 @@ public class NetherOresCore extends BaseMod
 			if (OreDictionary.getOres(oreName).size() > 0)
 				registerOreDictGem(ore, oreName, OreDictionary.getOres(oreName).get(0));
 		}
+
+		Ores.Coal.registerPulverizing(new ItemStack(Items.coal));
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}
@@ -367,8 +367,10 @@ public class NetherOresCore extends BaseMod
 
 	private void registerOreDictSmelt(Ores ore, String oreName, ItemStack stack)
 	{
-		if (!ore.isRegisteredSmelting() && ore.getSmeltName().equals(oreName))
+		if (ore.getSmeltName().equals(oreName)) {
 			ore.registerSmelting(stack);
+			ore.setDropItem(stack);
+		}
 	}
 
 	private void registerOreDictDust(Ores ore, String oreName, ItemStack stack)

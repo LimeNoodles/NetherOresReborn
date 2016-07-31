@@ -13,7 +13,6 @@ import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.config.Configuration;
@@ -23,46 +22,47 @@ import powercrystals.netherores.NetherOresCore;
 
 public enum Ores
 {
-	/*Name, Chunk, Group, Smelt, Pulv,    oreDic, SilkTouch, drop, Exp*/
-	Coal(       8,    16,     2,    5,     "coal",    true,	 2,		1),   // Coal is a special case. Handled manually
-	Diamond(    4,     3,     2,    5,     "gem",     true,  2,		3),
+	//@formatter:off
+	/*Name, Chunk, Group, Smelt, Pulv,    Prefix, Drop, Exp*/
+	Coal(       8,    16,     2,    5,      null,    2,   1),
+	Diamond(    4,     3,     2,    5,     "gem",    2,   3),
 	Gold(       8,     6,     2,    4),
 	Iron(       8,     8,     2,    4),
-	Lapis(      6,     6,     2,   24,     "gem",     true,  6,		2),
-	Redstone(   6,     8,     2,   21,    "dust",     true,  4,		2),
+	Lapis(      6,     6,     2,   24,     "gem",   16,   2),
+	Redstone(   6,     8,     2,   21,    "dust",    6,   2),
 	Copper(     8,     8,     2,    4),
 	Tin(        8,     8,     2,    4),
-	Emerald(    3,     2,     2,    5,     "gem",     true,  2,		3),
+	Emerald(    3,     2,     2,    5,     "gem",    2,   3),
 	Silver(     6,     4,     2,    4),
 	Lead(       6,     6,     2,    4),
 	Uranium(    3,     2,     2,    4, "crushed"),
-	Nikolite(   8,     4,     2,   21,    "dust",     true, 4, 		1),
-	Ruby(       6,     3,     2,    5,     "gem",     true,  2,		3),
-	Peridot(    6,     3,     2,    5,     "gem",     true,  2,		3),
-	Sapphire(   6,     3,     2,    5,     "gem",     true,  2,		3),
+	Nikolite(   8,     4,     2,   21,    "dust",    7,   2),
+	Ruby(       6,     3,     2,    5,     "gem",    2,   3),
+	Peridot(    6,     3,     2,    5,     "gem",    2,   3),
+	Sapphire(   6,     3,     2,    5,     "gem",    2,   3),
 
 	Platinum(   1,     3,     2,    4),
 	Nickel(     4,     6,     2,    4),
 	Steel(      3,     4,     2,    4),
 	Iridium(    1,     2,     2,    4,    "drop"),
 	Osmium(     8,     7,     2,    4),
-	Sulfur(    12,    12,     2,   24, "crystal"),
+	Sulfur(    12,    12,     2,   24,    "dust",    8,   1, "crystal"),
 	Titanium(   3,     2,     2,    4),
 	Mithril(    6,     6,     2,    4),
 	Adamantium( 5,     4,     2,    4),
 	Rutile(     3,     4,     2,    4),
 	Tungsten(   8,     8,     2,    4),
-	Amber(      5,     6,     2,    5,     "gem",    true, 2,		2),
+	Amber(      5,     6,     2,    5,     "gem",    2,   2),
 	Tennantite( 8,     8,     2,    4),
-	Salt(       5,     5,     2,   12,    "food",    true, 3, 		1),
-	Saltpeter(  6,     4,     2,   10, "crystal"),
+	Salt(       5,     5,     2,   12,    "food",    4,   1),
+	Saltpeter(  6,     4,     2,   10,    "dust",    3,   1, "crystal"),
 	Magnesium(  4,     5,     2,    8, "crushed");
 
+	//@formatter:on
 	private int _blockIndex;
 	private int _metadata;
 	private String _primary;
 	private String _secondary;
-	private boolean _requireSilkTouch;
 
 	private boolean _registeredSmelting;
 	private boolean _registeredMacerator;
@@ -78,36 +78,31 @@ public enum Ores
 	private int _oreGenGroupsPerChunk = 6;
 	private int _oreGenBlocksPerGroup = 14;
 
+	private int _miningLevel;
+
 	private int _smeltCount;
 	private int _pulvCount;
-	private int _miningLevel;
 	private int _dropCount;
 	private int _exp;
-	
-	private Item _itemDropped;
-	private int _metaDropped;
 
-	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String secondaryType, boolean requireSilkTouch)
-	{
-		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, secondaryType, secondaryType, requireSilkTouch, requireSilkTouch ? 2 : 1, requireSilkTouch ? 1 : 0);
-	}
-
-	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String secondaryType, boolean requireSilkTouch, int dropCount, int exp)
-	{
-		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, secondaryType, secondaryType, requireSilkTouch, dropCount, exp);
-	}
+	private ItemStack _itemDropped;
 
 	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
 	{
-		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, null, null, false, 1, 0);
+		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, null);
 	}
 
 	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String secondaryType)
 	{
-		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, null, secondaryType, false, 1, 0);
+		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, null, 1, 0, secondaryType);
 	}
 
-	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String primaryType, String secondaryType, boolean requireSilkTouch, int dropCount, int exp)
+	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String type, int dropCount, int exp)
+	{
+		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, type, dropCount, exp, type);
+	}
+
+	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String primaryType, int dropCount, int exp, String secondaryType)
 	{
 		int meta = ordinal();
 		_blockIndex = meta / 16;
@@ -120,7 +115,6 @@ public enum Ores
 		_miningLevel = 2;
 		_primary = primaryType != null ? primaryType : "ingot";
 		_secondary = secondaryType != null ? secondaryType : "crystalline";
-		_requireSilkTouch = requireSilkTouch;
 		_exp = exp;
 	}
 
@@ -162,10 +156,6 @@ public enum Ores
 	public boolean isRegisteredMacerator()
 	{
 		return _registeredMacerator;
-	}
-
-	public boolean isRequireSilkTouch() {
-		return _requireSilkTouch;
 	}
 
 	public int getMaxY()
@@ -213,20 +203,18 @@ public enum Ores
 		return _pulvCount;
 	}
 
-	public int getDropCount() 
+	public int getDropCount()
 	{
 		return _dropCount;
 	}
 
-	public Item getItemDropped() {
+	public ItemStack getDropItem()
+	{
 		return _itemDropped;
 	}
 
-	public int getMetaDropped() {
-		return _metaDropped;
-	}
-
-	public int getExp() {
+	public int getExp()
+	{
 		return _exp;
 	}
 
@@ -245,6 +233,14 @@ public enum Ores
 			// @deprecated
 			GameRegistry.registerCustomItemStack("netherOresBlock" + name(), oreStack);
 			GameRegistry.registerCustomItemStack(name(), oreStack);
+		}
+	}
+
+	public void setDropItem(ItemStack stack)
+	{
+		if (_itemDropped == null && stack != null && NetherOresCore.requireSilkTouch.getBoolean()) {
+			_itemDropped = stack.copy();
+			_itemDropped.stackSize = 1;
 		}
 	}
 
@@ -313,9 +309,6 @@ public enum Ores
 		{
 			registerAEGrinder(maceStack.copy());
 		}
-		
-		_itemDropped = maceStack.getItem();
-		_metaDropped = maceStack.getItemDamage();
 
 	}
 
@@ -376,18 +369,18 @@ public enum Ores
 		cat = "Processing.Ores." + name();
 		_smeltCount = c.get(cat, "SmeltedCount", _smeltCount, "Output from smelting " + name()).setRequiresMcRestart(true).getInt();
 		_primary = c.get(cat, "PrimaryOrePrefix", _primary, "Output from smelting " +
-				 name() + " if ore" + name() + " is not found or SmeltToOre is false (i.e., " + _primary + name() +
-				 ")").setRequiresMcRestart(true).getString();
+				name() + " if ore" + name() + " is not found or SmeltToOre is false (i.e., " + _primary + name() +
+				")").setRequiresMcRestart(true).getString();
 		_pulvCount = c.get(cat, "PulverizedCount", _pulvCount, "Output from grinding " + name()).setRequiresMcRestart(true).getInt();
 		_secondary = c.get(cat, "AlternateOrePrefix", _secondary, "Output from grinding " +
-				 name() + " if dust" + name() + " is not found (i.e., " + _secondary + name() +
-				 ")").setRequiresMcRestart(true).getString();
-		if (_requireSilkTouch) {
-			_requireSilkTouch = c.get(cat, "RequireSilkTouch", _requireSilkTouch, "Require Silk Touch to drop " + name() +
-					" as ore").setRequiresMcRestart(true).getBoolean() && NetherOresCore.requireSilkTouch.getBoolean();
-			_dropCount = c.get(cat, "dropCount", _dropCount, "Drop count when not harvesting " + name() + " with Silk Thouch")
+				name() + " if dust" + name() + " is not found (i.e., " + _secondary + name() +
+				")").setRequiresMcRestart(true).getString();
+
+		cat = "Mining.Ores." + name();
+		if (_dropCount > 1) {
+			_dropCount = c.get(cat, "DropCount", _dropCount, "Drop count when not harvesting " + name() + " with Silk Touch")
 					.setRequiresMcRestart(true).getInt();
-			_exp = c.get(cat, "Exp", _exp, "Exp dropped when not harvesting " + name() + " with Silk Thouch")
+			_exp = c.get(cat, "Exp", _exp, "Exp dropped when not harvesting " + name() + " with Silk Touch")
 					.setRequiresMcRestart(true).getInt();
 		}
 	}
@@ -397,9 +390,9 @@ public enum Ores
 		String cat = "WorldGen.Ores." + name();
 		_oreGenDisable |= !(_registeredSmelting | _registeredMacerator);
 		if (!c.get(cat, "Disable", _oreGenDisable, "Disables generation of " + name() +
-			" (overrides global ForceOreSpawn)").wasRead()) {
+				" (overrides global ForceOreSpawn)").wasRead()) {
 			c.get(cat, "Disable", _oreGenDisable, "Disables generation of " + name() +
-				" (overrides global ForceOreSpawn)").set(_oreGenDisable);
+					" (overrides global ForceOreSpawn)").set(_oreGenDisable);
 		}
 	}
 }

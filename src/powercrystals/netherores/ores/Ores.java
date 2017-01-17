@@ -72,6 +72,8 @@ public enum Ores
 
 	private boolean _retroGenEnabled = true;
 
+	private boolean _silky = true;
+
 	private int _oreGenMinY = 1;
 	private int _oreGenMaxY = 127;
 
@@ -90,6 +92,7 @@ public enum Ores
 	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount)
 	{
 		this(groupsPerChunk, blocksPerGroup, smeltCount, maceCount, null);
+		_silky = false;
 	}
 
 	private Ores(int groupsPerChunk, int blocksPerGroup, int smeltCount, int maceCount, String secondaryType)
@@ -238,7 +241,7 @@ public enum Ores
 
 	public void setDropItem(ItemStack stack)
 	{
-		if (_itemDropped == null && stack != null && NetherOresCore.requireSilkTouch.getBoolean()) {
+		if (_silky && _itemDropped == null && stack != null && NetherOresCore.requireSilkTouch.getBoolean()) {
 			_itemDropped = stack.copy();
 			_itemDropped.stackSize = 1;
 		}
@@ -383,6 +386,7 @@ public enum Ores
 			_exp = c.get(cat, "Exp", _exp, "Exp dropped when not harvesting " + name() + " with Silk Touch")
 					.setRequiresMcRestart(true).getInt();
 		}
+		_silky = c.get(cat, "RequireSilkTouch", _silky, "Require Silk Touch to get this ore in ore form.").setRequiresMcRestart(true).getBoolean();
 	}
 
 	public void postConfig(Configuration c)

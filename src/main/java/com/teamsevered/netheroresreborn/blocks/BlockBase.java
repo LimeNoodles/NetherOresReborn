@@ -1,11 +1,13 @@
-package powercrystals.netherores.blocks;
+package com.teamsevered.netheroresreborn.blocks;
+
+import com.teamsevered.netheroresreborn.NetherOresReborn;
+import com.teamsevered.netheroresreborn.items.Items;
+import com.teamsevered.netheroresreborn.util.IHasModel;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-
-import com.teamsevered.netherores.NetherOresReborn;
-import com.teamsevered.netherores.util.IHasModel;
+import net.minecraft.item.ItemBlock;
 
 public class BlockBase extends Block implements IHasModel
 {
@@ -15,10 +17,10 @@ public class BlockBase extends Block implements IHasModel
         super(material);
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(TabUtil.NETHER_ORE_TAB);
+        setCreativeTab(NetherOresReborn.NETHER_ORES_TAB);
         setHarvestLevel("pickaxe", 4);
 
-        Items.ITEMS.add(this);
+        Items.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
         Blocks.BLOCKS.add(this);
     }
 

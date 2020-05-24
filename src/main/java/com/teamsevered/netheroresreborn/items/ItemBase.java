@@ -1,7 +1,9 @@
-package powercrystals.netherores.items;
+package com.teamsevered.netheroresreborn.items;
+
+import com.teamsevered.netheroresreborn.NetherOresReborn;
+import com.teamsevered.netheroresreborn.util.IHasModel;
 
 import net.minecraft.item.Item;
-import powercrystals.netherores.NetherOresReborn;
 
 public class ItemBase extends Item implements IHasModel
 {
@@ -9,7 +11,7 @@ public class ItemBase extends Item implements IHasModel
     {
         setUnlocalizedName(name);
         setRegistryName(name);
-        setCreativeTab(TabUtil.NETHER_ORES_TAB);
+        setCreativeTab(NetherOresReborn.NETHER_ORES_TAB);
 
         Items.ITEMS.add(this);
     }

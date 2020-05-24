@@ -1,4 +1,4 @@
-package powercrystals.netherores.util;
+package com.teamsevered.netheroresreborn.util;
 
 public interface IHasModel
 {

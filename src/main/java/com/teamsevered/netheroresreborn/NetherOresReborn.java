@@ -2,6 +2,7 @@ package com.teamsevered.netheroresreborn;
 
 import com.teamsevered.netheroresreborn.proxy.CommonProxy;
 import com.teamsevered.netheroresreborn.util.Reference;
+import com.teamsevered.netheroresreborn.util.RegisterHandler;
 import com.teamsevered.netheroresreborn.util.TabUtil;
 import com.teamsevered.netheroresreborn.world.WorldGeneration;
 import net.minecraft.creativetab.CreativeTabs;
@@ -36,13 +37,13 @@ public class NetherOresReborn
 	@EventHandler
 	public void load(FMLInitializationEvent evt)
 	{
-
+		RegisterHandler.registerSmelting();
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e)
 	{
-
+		//TODO Oredict
 	}
 
 	@EventHandler

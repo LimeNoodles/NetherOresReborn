@@ -2,6 +2,7 @@ package com.teamsevered.netheroresreborn.blocks;
 
 import com.teamsevered.netheroresreborn.NetherOresReborn;
 import com.teamsevered.netheroresreborn.items.Items;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -14,13 +15,10 @@ public class NetherLapisOre extends BlockBase
     public NetherLapisOre(String name, Material material)
     {
         super(name, material);
-        setUnlocalizedName(name);
-        setRegistryName(name);
-        setCreativeTab(NetherOresReborn.NETHER_ORES_TAB);
+        setSoundType(SoundType.METAL);
+        setHardness(5.0F);
         setHarvestLevel("pickaxe", 3);
-
-        Items.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
-        Blocks.BLOCKS.add(this);
+        setResistance(15.0F);
     }
 
     @Override

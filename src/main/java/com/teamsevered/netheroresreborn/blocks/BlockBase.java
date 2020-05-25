@@ -18,10 +18,9 @@ public class BlockBase extends Block implements IHasModel
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(NetherOresReborn.NETHER_ORES_TAB);
-        setHarvestLevel("pickaxe", 4);
 
-        Items.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
         Blocks.BLOCKS.add(this);
+        Items.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
     @Override

@@ -7,13 +7,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-public class NetherCoalOre extends BlockBase
+public class NetherSulfurOre extends BlockBase
 {
-    public NetherCoalOre(String name, Material material)
+    public NetherSulfurOre(String name, Material material)
     {
         super(name, material);
         setSoundType(SoundType.METAL);
@@ -25,7 +24,7 @@ public class NetherCoalOre extends BlockBase
     @Override
     public Item getItemDropped(IBlockState state, Random random, int fortune)
     {
-        return net.minecraft.init.Items.COAL;
+        return Items.SULFUR;
     }
 
     @Override

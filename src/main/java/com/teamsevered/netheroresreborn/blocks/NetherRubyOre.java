@@ -1,23 +1,22 @@
 package com.teamsevered.netheroresreborn.blocks;
 
-import com.teamsevered.netheroresreborn.NetherOresReborn;
 import com.teamsevered.netheroresreborn.items.Items;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-public class NetherCoalOre extends BlockBase
+public class NetherRubyOre extends BlockBase
 {
-    public NetherCoalOre(String name, Material material)
+    public NetherRubyOre(String name, Material material)
     {
         super(name, material);
         setSoundType(SoundType.METAL);
         setHardness(5.0F);
+        setResistance(15.0F);
         setHarvestLevel("pickaxe", 3);
         setResistance(15.0F);
     }
@@ -25,7 +24,7 @@ public class NetherCoalOre extends BlockBase
     @Override
     public Item getItemDropped(IBlockState state, Random random, int fortune)
     {
-        return net.minecraft.init.Items.COAL;
+        return Items.RUBY;
     }
 
     @Override

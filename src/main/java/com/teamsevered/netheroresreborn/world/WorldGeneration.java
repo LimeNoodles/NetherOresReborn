@@ -38,9 +38,9 @@ public class WorldGeneration implements IWorldGenerator
         generateOre(Blocks.NETHER_LAPIS_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
         generateOre(Blocks.NETHER_LEAD_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
         generateOre(Blocks.NETHER_MAGNESIUM_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
-        generateOre(Blocks.NETHER_MITHRIL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
+        generateOre(Blocks.NETHER_MYTHRIL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
         generateOre(Blocks.NETHER_NICKEL_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
-        generateOre(Blocks.NETHER_NICKOLITE_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
+        generateOre(Blocks.NETHER_NIKOLITE_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
         generateOre(Blocks.NETHER_OSMIUM_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
         generateOre(Blocks.NETHER_PERIDOT_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);
         generateOre(Blocks.NETHER_PLATINUM_ORE.getDefaultState(), world, random, chunkX * 16, chunkZ * 16, 30, 120,random.nextInt(4) + 4, 18);

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "noreborn:copper_ingot"
+    "layer0": "noreborn:items/copper_ingot"
   }
 }

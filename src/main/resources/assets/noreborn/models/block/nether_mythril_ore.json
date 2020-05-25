@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "noreborn:blocks/nether_admantium_ore"
+    "all": "noreborn:blocks/nether_mythril_ore"
   }
 }

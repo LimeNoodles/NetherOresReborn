@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber
-public class RegisterHandler
+public class RegistryHandler
 {
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event)
@@ -72,6 +72,11 @@ public class RegisterHandler
         GameRegistry.addSmelting(Blocks.NETHER_TITANIUM_ORE, new ItemStack(Items.TITANIUM_INGOT,2), 3.0F);
         GameRegistry.addSmelting(Blocks.NETHER_TUNGSTEN_ORE, new ItemStack(Items.TUNGSTEN_INGOT,2), 3.0F);
         GameRegistry.addSmelting(Blocks.NETHER_URANIUM_ORE, new ItemStack(Items.URANIUM_INGOT,2), 3.0F);
+
+    }
+
+    public static void registerOreDictionary(String oreName, ItemStack stack)
+    {
 
     }
 }

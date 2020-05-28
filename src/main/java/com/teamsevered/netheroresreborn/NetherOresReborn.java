@@ -2,8 +2,9 @@ package com.teamsevered.netheroresreborn;
 
 import com.teamsevered.netheroresreborn.proxy.CommonProxy;
 import com.teamsevered.netheroresreborn.util.Reference;
-import com.teamsevered.netheroresreborn.util.RegisterHandler;
+import com.teamsevered.netheroresreborn.util.RegistryHandler;
 import com.teamsevered.netheroresreborn.util.TabUtil;
+import com.teamsevered.netheroresreborn.util.helpers.ConfigHelper;
 import com.teamsevered.netheroresreborn.world.WorldGeneration;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -11,7 +12,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.logging.Logger;
 
@@ -31,13 +31,15 @@ public class NetherOresReborn
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt)
 	{
+		ConfigHelper.createSections("netheroresreborn/netheroresreborn.cfg");
+		//todo ConfigHelper.addComments("netheroresreborn/netheroresreborn.cfg", "worldgen", "Select whether or not world gen for each ore is enabled");
 		GameRegistry.registerWorldGenerator(new WorldGeneration(), 0);
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent evt)
 	{
-		RegisterHandler.registerSmelting();
+		RegistryHandler.registerSmelting();
 	}
 
 	@EventHandler

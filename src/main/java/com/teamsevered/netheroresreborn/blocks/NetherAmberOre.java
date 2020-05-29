@@ -6,6 +6,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.Random;
 
@@ -18,12 +19,6 @@ public class NetherAmberOre extends BlockBase
         setHardness(5.0F);
         setResistance(15.0F);
         setHarvestLevel("pickaxe", 3);
-    }
-
-    @Override
-    public Item getItemDropped(IBlockState state, Random random, int fortune)
-    {
-        return Items.RUBY;
     }
 
     @Override

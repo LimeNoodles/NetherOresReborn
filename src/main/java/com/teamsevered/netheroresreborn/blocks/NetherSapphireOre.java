@@ -22,12 +22,6 @@ public class NetherSapphireOre extends BlockBase
     }
 
     @Override
-    public Item getItemDropped(IBlockState state, Random random, int fortune)
-    {
-        return Items.SAPPHIRE;
-    }
-
-    @Override
     public int quantityDropped(Random rand)
     {
         int max = 7;

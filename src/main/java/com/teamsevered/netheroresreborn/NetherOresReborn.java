@@ -1,5 +1,9 @@
 package com.teamsevered.netheroresreborn;
 
+import cofh.*;
+
+import cofh.api.util.ThermalExpansionHelper;
+import com.teamsevered.netheroresreborn.blocks.Blocks;
 import com.teamsevered.netheroresreborn.proxy.CommonProxy;
 import com.teamsevered.netheroresreborn.util.Reference;
 import com.teamsevered.netheroresreborn.util.RegistryHandler;
@@ -7,6 +11,11 @@ import com.teamsevered.netheroresreborn.util.TabUtil;
 import com.teamsevered.netheroresreborn.util.helpers.ConfigHelper;
 import com.teamsevered.netheroresreborn.world.WorldGeneration;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -34,18 +43,25 @@ public class NetherOresReborn
 		ConfigHelper.createSections("netheroresreborn/netheroresreborn.cfg");
 		//todo ConfigHelper.addComments("netheroresreborn/netheroresreborn.cfg", "worldgen", "Select whether or not world gen for each ore is enabled");
 		GameRegistry.registerWorldGenerator(new WorldGeneration(), 0);
+		RegistryHandler.registerSmelting();
 	}
 
 	@EventHandler
 	public void load(FMLInitializationEvent evt)
 	{
-		RegistryHandler.registerSmelting();
+		//RegistryHandler.registerSmelting();
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e)
 	{
 		//TODO Oredict
+		if(Loader.isModLoaded("thermalexpansion"))
+		{
+			RegistryHandler.registerFurnace("thermalexpansion");
+			RegistryHandler.registerPulverizer();
+		}
+		//;addPulverizerRecipe(3000, new ItemStack(Item.getItemFromBlock(Blocks.NETHER_GOLD_ORE)), new ItemStack(Item.getByNameOrId(OreDictionary.getOres("dustGold").toString())), new ItemStack(Item.getByNameOrId(OreDictionary.getOres("dustGold"))));
 	}
 
 	@EventHandler

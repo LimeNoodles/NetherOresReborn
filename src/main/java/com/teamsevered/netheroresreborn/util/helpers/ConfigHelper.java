@@ -1,10 +1,6 @@
 package com.teamsevered.netheroresreborn.util.helpers;
 
-import com.teamsevered.netheroresreborn.blocks.BlockBase;
 import com.teamsevered.netheroresreborn.configuration.ConfigurationHandler;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraftforge.common.config.Config;
 
 public class ConfigHelper
 {
